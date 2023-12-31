@@ -6,18 +6,18 @@
         <h1>New Project</h1>
     </section>
     <section id="form">
-        <form action="">
+        <form action="{{ url_for('update', id=project.id) }}" method="post">
             <label for="title">Project Title</label>
-            <input type="text" name="title" id="title" placeholder="Project Name" required>
+            <input type="text" name="title" id="title" placeholder="Project Name" required value="{{ project.name }}">
             <label for="date">Completion Date</label>
-            <input type="month" name="date" id="date" required>
+            <input type="month" name="date" id="date" required value="{{ project.date }}">
             <label for="description">Description</label>
-            <textarea name="desc" id="description" cols="30" rows="20" placeholder="Description" required></textarea>
+            <textarea name="desc" id="description" cols="30" rows="20" placeholder="Description" required>{{ project.description }}</textarea>
             <label for="skills-list" id="skills-label">Skills</label>
             <p>Separate each skill by a comma</p>
-            <textarea name="skills" id="skills-list" cols="30" rows="10" placeholder="Skill, Skill" required></textarea>
+            <textarea name="skills" id="skills-list" cols="30" rows="10" placeholder="Skill, Skill" required>{{ project.skills }}</textarea>
             <label for="github">GitHub Link</label>
-            <input type="url" name="github" id="github" placeholder="Link to the repo" required>
+            <input type="url" name="github" id="github" placeholder="Link to the repo" required value="{{ project.link }}">
             <div>
                 <button type="reset">Cancel</button>
                 <button type="submit">Submit</button>
