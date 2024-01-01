@@ -3,6 +3,8 @@ from models import db, Project, app
 import datetime
 
 
+# CLEANER FUNCTIONS
+
 def clean_date(date_str):
     date_split = date_str.split('-')
     year = int(date_split[0])
@@ -11,10 +13,6 @@ def clean_date(date_str):
 
 
 def month_string(month):
-    # months = ['January', 'February', 'March', 'April', 
-    #           'May', 'June', 'July', 'August', 'September', 
-    #           'October', 'November', 'December']
-    # str_month = months[month-1]
     str_month = month.strftime('%B %Y')
     return str_month
 
@@ -23,6 +21,14 @@ def display_month(month):
     updated_month = month.strftime('%Y-%m')
     return updated_month
 
+
+def skills_list(skills):
+    skills_split = skills.split(', ')
+    return skills_split
+
+
+
+# ROUTES
 
 @app.route('/')
 def index():
@@ -36,7 +42,7 @@ def project_details(id):
     projects = Project.query.all()
     project = Project.query.get_or_404(id)
     project.date = month_string(project.date)
-
+    project.skills = skills_list(project.skills)
 
     return render_template('detail.html', project=project, projects=projects)
 
