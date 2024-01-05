@@ -35,8 +35,10 @@ h3 {
     font-weight: bold;
 }
 
-body {
+body, html {
     overflow-x: hidden;
+    height: 100%;
+    margin: 0;
 }
 
 /*******
@@ -339,6 +341,7 @@ Footer
     background-color: var(--primary);
     text-align: center;
     padding-bottom: 2rem;
+    height: 175px;
 }
 
 .footer  i,
@@ -560,6 +563,18 @@ EXCEEDS - About Page
     font-size: 20px;
     padding-right: 10px;
 }
+
+
+/*******
+404 Page
+*******/
+.wrapper {
+    min-height: calc(100% - 175px); 
+    margin-bottom: -175px; /* Set to the height of your footer */
+    padding-bottom: 175px; /* Set to the height of your footer */
+}
+
+
 
 /*******
 Media Queries

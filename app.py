@@ -30,6 +30,7 @@ def skills_list(skills):
 
 # ROUTES
 
+# Index
 @app.route('/')
 def index():
     projects = Project.query.all()
@@ -37,6 +38,7 @@ def index():
     return render_template('index.html', projects=projects)
 
 
+# Project Details
 @app.route('/projects/<id>')
 def project_details(id):
     projects = Project.query.all()
@@ -47,6 +49,7 @@ def project_details(id):
     return render_template('detail.html', project=project, projects=projects)
 
 
+# Add Project
 @app.route('/projects/new', methods=['GET', 'POST'])
 def new():
     projects = Project.query.all()
@@ -64,6 +67,7 @@ def new():
     return render_template('projectform.html', projects=projects)
 
 
+# Edit Project
 @app.route('/projects/<id>/edit', methods=['GET', 'POST'])
 def update(id):
     projects = Project.query.all()
@@ -76,15 +80,13 @@ def update(id):
         project.skills = request.form['skills']
         project.link = request.form['github']
         db.session.commit()
-
         return redirect( url_for('index') )
 
     project.date = display_month(project.date)
-
-
     return render_template('editform.html', project=project, projects=projects)
 
 
+# Delete Project
 @app.route('/projects/<id>/delete')
 def delete_project(id):
     project = Project.query.get_or_404(id)
@@ -94,9 +96,25 @@ def delete_project(id):
     return redirect( url_for('index') )
 
 
+# About Page
+@app.route('/about')
+def about():
+    projects = Project.query.all()
+
+    return render_template('about.html', projects=projects)
+
+
+# Handle Errors
+@app.errorhandler(404)
+def not_found(error):
+    projects = Project.query.all()
+
+    return render_template('404.html', msg=error, projects=projects), 404
+
+
+# RUN MAIN APP
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=5500, host='127.0.0.1')
-
-        
+    app.run(debug=True, port=5500, host='127.0.0.1')        
